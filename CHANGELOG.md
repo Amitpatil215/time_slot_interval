@@ -1,6 +1,6 @@
-## [0.0.2] - 2020-10-10
+# [0.0.2]
 
-* Start, end time & duration costumizable
+* Costumizable start,end time & duration
 
 ## [0.0.1] - Release
 

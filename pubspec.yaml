@@ -1,6 +1,6 @@
 name: time_slot_interval
 description: A new Flutter package which helps in creating time slots with given time interval.
-version: 0.0.1
+version: 0.0.2
 homepage: https://github.com/Amitpatil215/time_slot_interval
 
 environment:
