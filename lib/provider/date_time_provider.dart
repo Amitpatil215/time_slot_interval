@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class DateTimeProvider with ChangeNotifier {
-   TimeOfDay _selectTime = TimeOfDay(hour: 17, minute: 0);
+  TimeOfDay _selectTime = TimeOfDay(hour: 17, minute: 0);
   DateTime _selectedDate = DateTime.now();
   bool _isTelemedication = true;
 
