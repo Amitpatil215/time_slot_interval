@@ -5,29 +5,39 @@ import 'package:provider/provider.dart';
 import './provider/date_time_provider.dart';
 import 'widgets/SlotIntervalGenerator.dart';
 
-class TimeSlotIntervel extends StatelessWidget {
-  @required
-  final DateTime startTime;
-  @required
-  final DateTime endTime;
-  @required
-  final Duration step;
-  final bool custom;
+typedef OnTapValueSetter<T> = void Function(T newValue);
 
-  TimeSlotIntervel({
-    this.startTime,
-    this.endTime,
-    this.step,
-    this.custom = false,
+class TimeSlotIntervelDefault extends StatelessWidget {
+  /// Starting Time
+
+  final DateTime startTime;
+
+  final DateTime endTime;
+
+  /// Difference between two dateTime
+
+  final Duration step;
+
+  /// The callback that is called when the time slot is tapped.
+
+  final OnTapValueSetter<DateTime> onTap;
+
+  TimeSlotIntervelDefault({
+    @required this.startTime,
+    @required this.endTime,
+    @required this.step,
+    @required this.onTap,
   });
+
+  /// Calls the [FormField]'s onSaved method with the current value.
+  void save(value) {
+    if (onTap != null) onTap(value);
+  }
 
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (context) => DateTimeProvider(),
-      child: !custom
-          ? SlotInteralGenerator(startTime, endTime, step)
-          : Text("Hello"),
-    );
+        create: (context) => DateTimeProvider(),
+        child: SlotInteralGenerator(startTime, endTime, step, save));
   }
 }

@@ -10,8 +10,9 @@ class SlotInteralGenerator extends StatelessWidget {
   final DateTime _startTime;
   final DateTime _endTime;
   final Duration _step;
+  final Function save;
 
-  SlotInteralGenerator(this._startTime, this._endTime, this._step);
+  SlotInteralGenerator(this._startTime, this._endTime, this._step, this.save);
 
   Iterable<TimeOfDay> getTimes(
       TimeOfDay startTime, TimeOfDay endTime, Duration step) sync* {
@@ -62,6 +63,7 @@ class SlotInteralGenerator extends StatelessWidget {
                 times: morningTime,
                 title: "Morning",
                 selectedTime: fetchedTime,
+                save: save,
               ),
             if (morningTime.isNotEmpty) SizedBox(height: 20),
             if (afterNoonTime.isNotEmpty)
@@ -69,6 +71,7 @@ class SlotInteralGenerator extends StatelessWidget {
                 times: afterNoonTime,
                 title: "Afternoon",
                 selectedTime: fetchedTime,
+                save: save,
               ),
             if (afterNoonTime.isNotEmpty) SizedBox(height: 20),
             if (eveningTime.isNotEmpty)
@@ -76,6 +79,7 @@ class SlotInteralGenerator extends StatelessWidget {
                 times: eveningTime,
                 title: "Evening",
                 selectedTime: fetchedTime,
+                save: save,
               ),
             if (eveningTime.isNotEmpty) SizedBox(height: 20),
             if (nightTime.isNotEmpty)
@@ -83,6 +87,7 @@ class SlotInteralGenerator extends StatelessWidget {
                 times: nightTime,
                 title: "Night",
                 selectedTime: fetchedTime,
+                save: save,
               ),
           ],
         ),
@@ -95,12 +100,14 @@ class EachTimeSlotGenerate extends StatelessWidget {
   final String title;
   final TimeOfDay selectedTime;
   final List<TimeOfDay> times;
+  final Function save;
 
   EachTimeSlotGenerate({
     Key key,
     this.title,
     this.selectedTime,
     @required this.times,
+    this.save,
   }) : super(key: key);
 
   @override
@@ -148,6 +155,8 @@ class EachTimeSlotGenerate extends StatelessWidget {
                 onTap: () {
                   Provider.of<DateTimeProvider>(context, listen: false)
                       .setTimeSelected(times.elementAt(index));
+                  save(Provider.of<DateTimeProvider>(context, listen: false)
+                      .fetchAppointmentDate);
                 },
               ),
             ),

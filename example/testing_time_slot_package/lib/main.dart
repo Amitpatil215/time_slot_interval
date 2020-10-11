@@ -11,11 +11,13 @@ class MyApp extends StatelessWidget {
     return Scaffold(
       body: Container(
         child: Center(
-          child: TimeSlotIntervel(
+          child: TimeSlotIntervelDefault(
             endTime: DateTime(2020, 9, 7, 23, 30),
             startTime: DateTime(2020, 9, 7, 2, 30),
             step: Duration(minutes: 30),
-            custom: false,
+            onTap: (newValue) {
+              print(newValue);
+            },
           ),
         ),
       ),
