@@ -29,8 +29,7 @@ class TimeSlotIntervelDefault extends StatelessWidget {
     @required this.onTap,
   });
 
-  /// Calls the [FormField]'s onSaved method with the current value.
-  void save(value) {
+  void _save(value) {
     if (onTap != null) onTap(value);
   }
 
@@ -38,6 +37,6 @@ class TimeSlotIntervelDefault extends StatelessWidget {
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
         create: (context) => DateTimeProvider(),
-        child: SlotInteralGenerator(startTime, endTime, step, save));
+        child: SlotInteralGenerator(startTime, endTime, step, _save));
   }
 }
