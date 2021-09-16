@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
 import '../provider/date_time_provider.dart';
 
 class SlotInteralGenerator extends StatelessWidget {
-  static List<TimeOfDay> morningTime;
-  static List<TimeOfDay> afterNoonTime;
-  static List<TimeOfDay> eveningTime;
-  static List<TimeOfDay> nightTime;
   final DateTime _startTime;
   final DateTime _endTime;
   final Duration _step;
@@ -30,66 +27,21 @@ class SlotInteralGenerator extends StatelessWidget {
         (hour == endTime.hour && minute <= endTime.minute));
   }
 
-  void partOfDayWiseList(List<TimeOfDay> times) {
-    morningTime = times
-        .where((element) => element.hour >= 4 && element.hour < 12)
-        .toList();
-    afterNoonTime = times
-        .where((element) => element.hour >= 12 && element.hour < 17)
-        .toList();
-    eveningTime = times
-        .where((element) => element.hour >= 17 && element.hour < 21)
-        .toList();
-    nightTime = times
-        .where((element) => element.hour >= 21 && element.hour < 24)
-        .toList();
-  }
-
   @override
   Widget build(BuildContext context) {
     final times = getTimes(TimeOfDay.fromDateTime(_startTime),
             TimeOfDay.fromDateTime(_endTime), _step)
         .map((tod) => tod)
         .toList();
-    partOfDayWiseList(times);
     var fetchedTime = Provider.of<DateTimeProvider>(context).fetchTime;
     return Scaffold(
       body: Container(
         padding: EdgeInsets.only(left: 10, right: 7),
-        child: Column(
-          children: [
-            if (morningTime.isNotEmpty)
-              EachTimeSlotGenerate(
-                times: morningTime,
-                title: "Morning",
-                selectedTime: fetchedTime,
-                save: save,
-              ),
-            if (morningTime.isNotEmpty) SizedBox(height: 20),
-            if (afterNoonTime.isNotEmpty)
-              EachTimeSlotGenerate(
-                times: afterNoonTime,
-                title: "Afternoon",
-                selectedTime: fetchedTime,
-                save: save,
-              ),
-            if (afterNoonTime.isNotEmpty) SizedBox(height: 20),
-            if (eveningTime.isNotEmpty)
-              EachTimeSlotGenerate(
-                times: eveningTime,
-                title: "Evening",
-                selectedTime: fetchedTime,
-                save: save,
-              ),
-            if (eveningTime.isNotEmpty) SizedBox(height: 20),
-            if (nightTime.isNotEmpty)
-              EachTimeSlotGenerate(
-                times: nightTime,
-                title: "Night",
-                selectedTime: fetchedTime,
-                save: save,
-              ),
-          ],
+        child: EachTimeSlotGenerate(
+          times: times,
+          title: "All time",
+          selectedTime: fetchedTime,
+          save: save,
         ),
       ),
     );
@@ -103,11 +55,11 @@ class EachTimeSlotGenerate extends StatelessWidget {
   final Function save;
 
   EachTimeSlotGenerate({
-    Key key,
-    this.title,
-    this.selectedTime,
-    @required this.times,
-    this.save,
+    Key? key,
+    required this.title,
+    required this.selectedTime,
+    required this.times,
+    required this.save,
   }) : super(key: key);
 
   @override

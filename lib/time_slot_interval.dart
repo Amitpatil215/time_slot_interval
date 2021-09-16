@@ -2,6 +2,7 @@ library time_slot_interval;
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
 import './provider/date_time_provider.dart';
 import 'widgets/SlotIntervalGenerator.dart';
 
@@ -23,14 +24,14 @@ class TimeSlotIntervelDefault extends StatelessWidget {
   final OnTapValueSetter<DateTime> onTap;
 
   TimeSlotIntervelDefault({
-    @required this.startTime,
-    @required this.endTime,
-    @required this.step,
-    @required this.onTap,
+    required this.startTime,
+    required this.endTime,
+    required this.step,
+    required this.onTap,
   });
 
   void _save(value) {
-    if (onTap != null) onTap(value);
+    onTap(value);
   }
 
   @override
