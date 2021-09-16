@@ -33,7 +33,7 @@ class DateTimeProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  void setAppoitmentType({bool istele}) {
+  void setAppoitmentType({required bool istele}) {
     _isTelemedication = istele;
     notifyListeners();
   }
